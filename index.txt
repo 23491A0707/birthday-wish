@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Surprise! 🎂</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #surprise-container {
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .gift-box {
+            font-size: 120px;
+            animation: wobble 2s infinite;
+            display: inline-block;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        .hidden-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+            border: 4px dashed #ff80ab;
+            max-width: 80%;
+            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        h1 {
+            color: #ff4081;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .personalized-name {
+            color: #7e57c2;
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .confetti {
+            position: absolute;
+            bottom: -50px;
+            pointer-events: none;
+            animation: float Up 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            to { transform: translateY(-110vh) rotate(360deg); }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="birthdayMusic" loop>
+        <source src="https://www.chosic.com/wp-content/uploads/2021/04/Happy-Birthday-Piano-Version.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="surprise-container" onclick="revealSurprise()">
+        <div id="box" class="gift-box">🎁</div>
+        <h2 id="instruction" style="color: #ff80ab;">Tap to open your gift! ✨</h2>
+
+        <div id="wish" class="hidden-content">
+            <h1>Happy Birthday,</h1>
+            <span class="personalized-name">Bestie! ✨</span> <p style="font-size: 1.2rem; color: #555;">
+                May your day be as sweet as cupcakes and as bright as the stars! 🌟
+            </p>
+            <div style="font-size: 40px;">🦄 🍰 🍬 🎀</div>
+        </div>
+    </div>
+
+    <script>
+        function revealSurprise() {
+            // Play Music
+            const music = document.getElementById('birthdayMusic');
+            music.play().catch(error => console.log("Audio play blocked by browser."));
+
+            // Toggle Visibility
+            document.getElementById('box').style.display = 'none';
+            document.getElementById('instruction').style.display = 'none';
+            document.getElementById('wish').style.display = 'block';
+
+            // Floating Emoji Explosion
+            const emojis = ['💖', '🎂', '🎈', '✨', '🌸', '🎁', '⭐', '🍦'];
+            
+            for (let i = 0; i < 60; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    confetti.style.opacity = Math.random();
+                    
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 80);
+            }
+        }
+    </script>
+</body>
+</html>
