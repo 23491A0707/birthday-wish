@@ -47,16 +47,9 @@ function showSurprise() {
 document.addEventListener('mousemove', (e) => {
     if (Math.random() > 0.95) {
         const sparkle = document.createElement('div');
-        sparkle.className = 'confetti-piece';
+        sparkle.className = 'sparkle';
         sparkle.style.left = e.clientX + 'px';
         sparkle.style.top = e.clientY + 'px';
-        sparkle.style.background = '#ffd700';
-        sparkle.style.width = '5px';
-        sparkle.style.height = '5px';
-        sparkle.style.position = 'fixed';
-        sparkle.style.pointerEvents = 'none';
-        sparkle.style.borderRadius = '50%';
-        sparkle.style.animation = 'sparkleDisappear 1s ease-out forwards';
         
         document.body.appendChild(sparkle);
         
@@ -69,6 +62,16 @@ document.addEventListener('mousemove', (e) => {
 // Add sparkle animation
 const style = document.createElement('style');
 style.textContent = `
+    .sparkle {
+        position: fixed;
+        width: 5px;
+        height: 5px;
+        background: #ffd700;
+        border-radius: 50%;
+        pointer-events: none;
+        animation: sparkleDisappear 1s ease-out forwards;
+    }
+    
     @keyframes sparkleDisappear {
         0% {
             opacity: 1;
